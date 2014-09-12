@@ -1,0 +1,16 @@
+{
+    "name": "reekoheek/bootstrap-theme",
+    "description": "Bono Bootstrap Theme",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ganesha",
+            "email": "reekoheek@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "ROH\\Theme\\BootstrapTheme": "src"
+        }
+    }
+}
