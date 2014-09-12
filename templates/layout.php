@@ -39,7 +39,11 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
+                        <?php if (empty($_SESSION['user'])): ?>
+                        <li><a href="<?php echo URL::site('/login') ?>">Login</a></li>
+                        <?php else: ?>
                         <li><a href="<?php echo URL::site('/logout') ?>">Logout</a></li>
+                        <?php endif ?>
                     </ul>
                     <!-- <form class="navbar-form navbar-right">
                         <input type="text" class="form-control" placeholder="Search...">
@@ -50,7 +54,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <?php if ($app->auth->authorize('/menu')): ?>
+                <?php if (f('auth.authorize', '/menu')): ?>
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
                         <?php foreach($app->theme->options['menu'] as $menu): ?>
@@ -59,6 +63,8 @@
                     </ul>
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <?php echo f('notification.show') ?>
+
                     <?php echo $body ?>
                 </div>
                 <?php else: ?>
@@ -104,6 +110,14 @@
                 if (location.href.indexOf($(this).attr('href')) === 0) {
                     $(this).parent().addClass('active');
                 }
+            });
+
+            $('.alert').each(function() {
+                var classes = 'alert-info';
+                if ($(this).hasClass('error')) {
+                    classes = 'alert-danger';
+                }
+                $(this).addClass(classes);
             });
         });
         </script>
