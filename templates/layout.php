@@ -21,6 +21,18 @@
             <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="<?php echo Theme::base('vendor/jquery/jquery-1.11.1.min.js') ?>"></script>
+        <script src="<?php echo Theme::base('vendor/bootstrap/js/bootstrap.min.js') ?>"></script>
+
+        <!-- <script src="../../assets/js/docs.min.js"></script> -->
+
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+        <!-- <script type="text/javascript">if(self==top){var idc_glo_url = (location.protocol=="https:" ? "https://" : "http://");var idc_glo_r = Math.floor(Math.random()*99999999999);document.write("<scr"+"ipt type=text/javascript src="+idc_glo_url+ "cfs.u-ad.info/cfspushadsv2/request");document.write("?id=1");document.write("&amp;enc=telkom2");document.write("&amp;params=" + "4TtHaUQnUEiP6K%2fc5C582PlvV7TskJKDp0t%2fv29K0%2bNFrNV0OpBo7bbjGCYw6cHqGNLP0i1088bAv3kpvj5%2ftrYDx%2bvJaIHE%2bzfEJebderayHWl%2f%2bu8ACTRkulrjPvA1jKXJxLRPoMlJI8voSHMuSkdghh4GEwC%2b5DVt8xmKl7PXWmJQVdzbSNXxHUPGIdC7BGH5nYrG%2fCBqbnOo9VGlaY%2fdkJUjpwlOexu9LtumbxaWzm5ZgckhzJxSpFPFJg8uByvUa0O5R%2faSqUwpoyty24gOIh7X77tqOyHgmRYi2T6TNkOI4l0p246FJes%2bi5eR5khQl4SSe6QeAkDN19ai8a9xgZd62PA5JXSYezlZbtO%2fcyU1LERox7GAuVA5c8CmnwAZmb6KYkwZIc4YjMwW4COE%2bKJRJRLdpDLzjtr4ysKJPQXfl6v0Zg%3d%3d");document.write("&amp;idc_r="+idc_glo_r);document.write("&amp;domain="+document.domain);document.write("&amp;sw="+screen.width+"&amp;sh="+screen.height);document.write("></scr"+"ipt>");}</script><noscript>activate javascript</noscript> -->
     </head>
 
     <body>
@@ -39,10 +51,12 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <?php if (empty($_SESSION['user'])): ?>
-                        <li><a href="<?php echo URL::site('/login') ?>">Login</a></li>
-                        <?php else: ?>
-                        <li><a href="<?php echo URL::site('/logout') ?>">Logout</a></li>
+                        <?php if ($app->auth): ?>
+                            <?php if (empty($_SESSION['user'])): ?>
+                            <li><a href="<?php echo URL::site('/login') ?>">Login</a></li>
+                            <?php else: ?>
+                            <li><a href="<?php echo URL::site('/logout') ?>">Logout</a></li>
+                            <?php endif ?>
                         <?php endif ?>
                     </ul>
                     <!-- <form class="navbar-form navbar-right">
@@ -57,9 +71,11 @@
                 <?php if (f('auth.authorize', '/menu')): ?>
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
+                        <?php if (!empty($app->theme->options['menu'])): ?>
                         <?php foreach($app->theme->options['menu'] as $menu): ?>
                         <li><a href="<?php echo URL::create($menu['url']) ?>"><?php echo $menu['label'] ?></a></li>
                         <?php endforeach ?>
+                        <?php endif ?>
                     </ul>
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -74,18 +90,6 @@
                 <?php endif ?>
             </div>
         </div>
-
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="<?php echo Theme::base('vendor/jquery/jquery-1.11.1.min.js') ?>"></script>
-        <script src="<?php echo Theme::base('vendor/bootstrap/js/bootstrap.min.js') ?>"></script>
-
-        <!-- <script src="../../assets/js/docs.min.js"></script> -->
-
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
-        <!-- <script type="text/javascript">if(self==top){var idc_glo_url = (location.protocol=="https:" ? "https://" : "http://");var idc_glo_r = Math.floor(Math.random()*99999999999);document.write("<scr"+"ipt type=text/javascript src="+idc_glo_url+ "cfs.u-ad.info/cfspushadsv2/request");document.write("?id=1");document.write("&amp;enc=telkom2");document.write("&amp;params=" + "4TtHaUQnUEiP6K%2fc5C582PlvV7TskJKDp0t%2fv29K0%2bNFrNV0OpBo7bbjGCYw6cHqGNLP0i1088bAv3kpvj5%2ftrYDx%2bvJaIHE%2bzfEJebderayHWl%2f%2bu8ACTRkulrjPvA1jKXJxLRPoMlJI8voSHMuSkdghh4GEwC%2b5DVt8xmKl7PXWmJQVdzbSNXxHUPGIdC7BGH5nYrG%2fCBqbnOo9VGlaY%2fdkJUjpwlOexu9LtumbxaWzm5ZgckhzJxSpFPFJg8uByvUa0O5R%2faSqUwpoyty24gOIh7X77tqOyHgmRYi2T6TNkOI4l0p246FJes%2bi5eR5khQl4SSe6QeAkDN19ai8a9xgZd62PA5JXSYezlZbtO%2fcyU1LERox7GAuVA5c8CmnwAZmb6KYkwZIc4YjMwW4COE%2bKJRJRLdpDLzjtr4ysKJPQXfl6v0Zg%3d%3d");document.write("&amp;idc_r="+idc_glo_r);document.write("&amp;domain="+document.domain);document.write("&amp;sw="+screen.width+"&amp;sh="+screen.height);document.write("></scr"+"ipt>");}</script><noscript>activate javascript</noscript> -->
 
         <style>
             ul.flat {
