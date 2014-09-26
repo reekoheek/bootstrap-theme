@@ -36,7 +36,7 @@
                 <?php if ($i++ > 3) break ?>
                 <td>
                     <a href="<?php echo f('controller.url', '/'.$entry['$id']) ?>">
-                    <?php echo $field->format('readonly', $entry[$name]) ?>
+                    <?php echo $field->format('plain', $entry[$name], $entry) ?>
                     </a>
                 </td>
 

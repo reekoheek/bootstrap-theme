@@ -11,7 +11,7 @@
         <div class="form-group">
             <?php echo $field->label() ?>
 
-            <?php echo $field->format('readonly', @$entry[$name]) ?>
+            <?php echo $field->format('readonly', @$entry[$name], @$entry) ?>
 
         </div>
         <?php endif ?>

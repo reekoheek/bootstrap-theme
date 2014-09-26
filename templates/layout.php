@@ -103,6 +103,7 @@
 
             .form-group .field {
                 background-color: #eee;
+                height: auto;
             }
         </style>
         <script>
