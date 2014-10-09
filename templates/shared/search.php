@@ -42,7 +42,7 @@
 
                 <?php endforeach ?>
                 <?php else: ?>
-                <td><?php echo reset($entry) ?></td>
+                <td><?php echo $entry->format() ?></td>
                 <?php endif ?>
 
             </tr>
